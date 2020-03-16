@@ -22,6 +22,7 @@ pipeline {
         stage('Deliver for development') {
             when {
                 branch 'development'
+                sh 'echo '.env.BRANCH_NAME.''
             }
             steps {
                 sh './jenkins/scripts/deliver-for-development.sh'
