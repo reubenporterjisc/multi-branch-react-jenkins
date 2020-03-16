@@ -17,6 +17,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh './jenkins/scripts/test.sh'
+                sh 'echo '.env.BRANCH_NAME.''
             }
         }
         stage('Deliver for development') {
