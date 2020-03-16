@@ -22,9 +22,9 @@ pipeline {
         stage('Deliver for development') {
             when {
                 branch 'development'
-                sh 'echo '.env.BRANCH_NAME.''
             }
             steps {
+                sh 'echo '.env.BRANCH_NAME.''
                 sh './jenkins/scripts/deliver-for-development.sh'
                 //input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
