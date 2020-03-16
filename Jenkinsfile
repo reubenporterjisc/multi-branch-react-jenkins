@@ -12,26 +12,27 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
+                 sh 'echo .env.BRANCH_NAME'
             }
         }
         stage('Test') {
             steps {
+                 sh 'echo .env.BRANCH_NAME'
                 sh './jenkins/scripts/test.sh'
-                sh 'echo '.env.BRANCH_NAME.''
+            
             }
         }
-        stage('Deliver for development') {
+        stage('Deliver to development server') {
             when {
                 branch 'development'
             }
             steps {
-                sh 'echo '.env.BRANCH_NAME.''
                 sh './jenkins/scripts/deliver-for-development.sh'
                 //input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
         }
-        stage('Deploy for production') {
+        stage('Deploy to staging server') {
             when {
                 branch 'production'
             }
