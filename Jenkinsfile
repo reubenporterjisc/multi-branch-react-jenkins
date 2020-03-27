@@ -12,17 +12,25 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
+                 sh 'echo .env.BRANCH_NAME'
             }
         }
         stage('Test') {
             steps {
+                 sh 'echo .env.BRANCH_NAME'
                 sh './jenkins/scripts/test.sh'
+            
             }
         }
-        stage('Deliver for development') {
+        stage('Lighthouse report') {
+            steps {
+                sh 'npm install -g @lhci/cli@0.3.x'
+                sh 'lhci autorun'
+            }
+        }
+        stage('Deliver to development server') {
             when {
                 branch 'development'
-                sh 'echo '.env.BRANCH_NAME.''
             }
             steps {
                 sh './jenkins/scripts/deliver-for-development.sh'
@@ -30,7 +38,7 @@ pipeline {
                 sh './jenkins/scripts/kill.sh'
             }
         }
-        stage('Deploy for production') {
+        stage('Deploy to staging server') {
             when {
                 branch 'production'
             }
