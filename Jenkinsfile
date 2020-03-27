@@ -22,6 +22,12 @@ pipeline {
             
             }
         }
+        stage('Lighthouse report') {
+            steps {
+                sh 'npm install -g @lhci/cli@0.3.x'
+                sh 'lhci autorun'
+            }
+        }
         stage('Deliver to development server') {
             when {
                 branch 'development'
