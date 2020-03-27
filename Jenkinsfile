@@ -21,6 +21,7 @@ pipeline {
         }
         stage('Lighthouse report') {
             steps {
+                sh 'npm install -g @lhci/cli@0.3.x'
                 sh './jenkins/scripts/deliver-for-development.sh'
                 sh 'lhci autorun'
                 sh './jenkins/scripts/kill.sh'
