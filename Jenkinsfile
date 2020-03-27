@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Lighthouse report') {
             steps {
-                sh 'npm install -g @lhci/cli@0.3.x'
+                sh 'npm install @lhci/cli@0.3.x'
                 sh 'lhci autorun'
             }
         }
