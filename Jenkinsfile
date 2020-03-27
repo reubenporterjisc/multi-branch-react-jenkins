@@ -12,7 +12,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
-                 sh 'echo .env.BRANCH_NAME'
             }
         }
         stage('Test') {
@@ -22,19 +21,14 @@ pipeline {
             
             }
         }
-        stage('Lighthouse report') {
-            steps {
-                sh 'npm install @lhci/cli@0.3.x'
-                sh 'lhci autorun'
-            }
-        }
         stage('Deliver to development server') {
             when {
-                branch 'development'
+                branch 'master'
             }
             steps {
                 sh './jenkins/scripts/deliver-for-development.sh'
-                //input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh 'lhci autorun'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
         }
