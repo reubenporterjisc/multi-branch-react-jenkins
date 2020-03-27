@@ -2,6 +2,10 @@
   "ci": {
     "upload": {
       "target": "temporary-public-storage"
+    },
+    "collect": {
+      "method": "node",
+      "url": ["http://localhost:3000/"]
     }
   }
 }

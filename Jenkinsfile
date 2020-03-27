@@ -14,11 +14,15 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Test') {
+        stage('Tests') {
             steps {
-                 sh 'echo .env.BRANCH_NAME'
                 sh './jenkins/scripts/test.sh'
-            
+            }
+        }
+        stage('Lighthouse report') {
+            steps {
+                sh 'npm start'
+                sh 'lhci autorun'
             }
         }
         stage('Deliver to development server') {
