@@ -21,8 +21,9 @@ pipeline {
         }
         stage('Lighthouse report') {
             steps {
-                sh 'npm start'
+                sh './jenkins/scripts/deliver-for-development.sh'
                 sh 'lhci autorun'
+                sh './jenkins/scripts/kill.sh'
             }
         }
         stage('Deliver to development server') {
